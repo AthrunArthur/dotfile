@@ -1,12 +1,4 @@
 " PLUGINS CONFIG
-" calendar
-  nmap <Leader>ca :Calendar<CR>
-  let g:calendar_list = [
-  \   {'name': 'Tasks', 'path': $HOME.'/.vim/.tasks', 'ext': 'task'},
-  \   {'name': 'Diary', 'path': $HOME.'/.vim/.diary', 'ext': 'diary'},
-  \ ]
-  let g:calendar_current_idx = 1
-
 " autoformat
   noremap <F3> :Autoformat<CR><CR>
 
@@ -14,8 +6,9 @@
   let g:airline_detect_modified=1
   let g:airline_detect_paste=1
   let g:airline_inactive_collapse=1
-   "let g:bufferline_echo = 0
-   "let g:airline#extensions#bufferline#enabled = 1
+  let g:airline_powerline_fonts = 1
+  "let g:bufferline_echo = 0
+  "let g:airline#extensions#bufferline#enabled = 1
   let g:airline#extensions#syntastic#enabled = 1
   let g:airline#extensions#hunks#enabled = 1
   let g:airline#extensions#ctrlp#show_adjacent_modes = 1
@@ -36,7 +29,7 @@
   endif
 
 " buffergator
-  nmap <silent><Leader>b :EasyBufferHorizontal<CR>
+  nmap <silent><leader>b :EasyBufferHorizontal<CR>
   let g:easybuffer_horizontal_height = '15'
 
 " ctrlp
@@ -80,21 +73,7 @@
   hi link EasyMotionShade  Comment
 
 " emmet
-  let g:user_emmet_leader_key = '<C-y>'
-
-" fugitive
-  nmap <silent> <leader>gs :Gstatus<CR>
-  nmap <silent> <leader>gd :Gdiff<CR>
-  nmap <silent> <leader>gc :Gcommit<CR>
-  nmap <silent> <leader>gb :Gblame<CR>
-  nmap <silent> <leader>gl :Glog<CR>
-  nmap <silent> <leader>gp :Git push<CR>
-  nmap <silent> <leader>gr :Gread<CR>
-  nmap <silent> <leader>gw :Gwrite<CR>
-  nmap <silent> <leader>ge :Gedit<CR>
-  " Mnemonic _i_nteractive
-  nmap <silent> <leader>gi :Git add -p %<CR>
-  nmap <silent> <leader>gg :SignifyToggle<CR>
+  let g:user_emmet_leader_key = '!'
 
 " indent guides
   let g:indentLine_char = '│'
@@ -105,12 +84,11 @@
   vmap ; <Plug>NERDCommenterToggle
 
 " NERDTree
-  let g:netrw_liststyle=3
-  nmap <silent><Leader>nt :NERDTreeToggle<CR>
+  map <silent> <C-o> :NERDTreeToggle<CR>
   let g:NERDTreeBookmarksFile = expand($HOME.'/.vim/.NERDTreeBookmarks')
   let g:NERDTreeWinPos = "left"
   let g:NERDTreeShowBookmarks = 1
-  let g:NERDTreeWinSize = 30
+  let g:NERDTreeWinSize = 40
   let g:NERDTreeChristmasTree = 0
   let g:NERDTreeCaseSensitiveSort = 1
   let g:NERDTreeQuitOnOpen = 0
@@ -122,10 +100,7 @@
         \ '\.o$', '\.so$', '\.egg$', '^\.git$', '^\.svn$' ]
 
 " rainbow parentheses
-  au VimEnter * RainbowParenthesesToggle
-  au Syntax * RainbowParenthesesLoadRound
-  au Syntax * RainbowParenthesesLoadSquare
-  au Syntax * RainbowParenthesesLoadBraces
+  let g:rainbow_active = 1
 
 " signify
   let g:signify_sign_overwrite = 1
@@ -134,12 +109,20 @@
   let g:signify_sign_delete = '-'
   let g:signify_sign_delete_first_line = '-'
 
+" startify
+  let g:startify_change_to_dir          = 0
+  let g:startify_enable_special         = 0
+  let g:startify_files_number           = 8
+  let g:startify_session_autoload       = 1
+  let g:startify_session_delete_buffers = 1
+  let g:startify_session_persistence    = 1
+
 " swoop
   let g:swoopUseDefaultKeyMap = 0
-  nmap <Leader>l :call Swoop()<CR>
-  vmap <Leader>l :call SwoopSelection()<CR>
-  nmap <Leader>ml :call SwoopMulti()<CR>
-  vmap <Leader>ml :call SwoopMultiSelection()<CR>
+  nmap f :call Swoop()<CR>
+  vmap f :call SwoopSelection()<CR>
+  nmap F :call SwoopMulti()<CR>
+  vmap F :call SwoopMultiSelection()<CR>
 
 " syntastic
   let g:syntastic_enable_balloons = 1
@@ -152,21 +135,32 @@
   let g:syntastic_warning_symbol='⚠'
 
 " tabularize
-  vmap <Leader>a=  :Tabularize /=<CR>
-  vmap <Leader>a#  :Tabularize /#<CR>
-  vmap <Leader>a'  :Tabularize /'<CR>
-  vmap <Leader>a"  :Tabularize /"<CR>
-  vmap <Leader>a)  :Tabularize /)/r1c1l0<CR>
-  vmap <Leader>a== :Tabularize /=/r1c1l0<CR>
-  vmap <Leader>a:  :Tabularize /:<CR>
-  vmap <Leader>a:: :Tabularize /:\zs<CR>
-  vmap <Leader>a,  :Tabularize /,<CR>
-  vmap <Leader>a,, :Tabularize /,\zs<CR>
+  nmap <leader>a& :Tabularize /&<CR>
+  vmap <leader>a& :Tabularize /&<CR>
+  nmap <leader>a# :Tabularize /#<CR>
+  vmap <leader>a# :Tabularize /#<CR>
+  nmap <leader>a= :Tabularize /^[^=]*\zs=<CR>
+  vmap <leader>a= :Tabularize /^[^=]*\zs=<CR>
+  nmap <leader>a=> :Tabularize /=><CR>
+  vmap <leader>a=> :Tabularize /=><CR>
+  nmap <leader>a: :Tabularize /:<CR>
+  vmap <leader>a: :Tabularize /:<CR>
+  nmap <leader>a:: :Tabularize /:\zs<CR>
+  vmap <leader>a:: :Tabularize /:\zs<CR>
+  nmap <leader>a, :Tabularize /,<CR>
+  vmap <leader>a, :Tabularize /,<CR>
+  nmap <leader>a,, :Tabularize /,\zs<CR>
+  vmap <leader>a,, :Tabularize /,\zs<CR>
+  nmap <leader>a<Bar> :Tabularize /<Bar><CR>
+  vmap <leader>a<Bar> :Tabularize /<Bar><CR>
 
 " undotree
   nmap <silent>U :UndotreeToggle<CR>
   " If undotree is opened, it is likely one wants to interact with it.
   let g:undotree_SetFocusWhenToggle=1
+
+" vim-over
+  nnoremap <C-h> :OverCommandLine<CR>%s/<C-r><C-w>/
 
 " neocomplete
   let neocomplete_readme=expand('~/.vim/bundle/neocomplete/README.md')
@@ -177,7 +171,7 @@
     let g:neocomplete#max_list = 15
     let g:neocomplete#force_overwrite_completefunc = 1
 
-     "Use honza's snippets.
+    " Use honza's snippets.
     let g:neosnippet#snippets_directory=expand($HOME.'/.vim/bundle/vim-snippets/snippets')
 
     " Define keyword.
@@ -195,30 +189,9 @@
     \: "\<TAB>"
 
     " Some convenient mappings
-    imap <expr><Up> pumvisible() ? "\<C-p>" : "\<Up>"
     imap <expr><C-k>  pumvisible() ? "\<C-p>" : "\<C-k>"
-
-    imap <expr><Down> pumvisible() ? "\<C-n>" : "\<Down>"
     imap <expr><C-j>  pumvisible() ? "\<C-n>" : "\<C-j>"
-
     imap <expr><Esc> pumvisible() ? "\<C-y>\<Esc>" : "\<Esc>"
-    "imap <expr><CR> pumvisible() ? "\<C-y>\<CR>" : "\<CR>"
-
-    " <CR>: close popup
-    function! SmartReturn()
-      if pumvisible()
-        if neosnippet#expandable()
-          let expand = "\<Plug>(neosnippet_expand)"
-          return expand . neocomplete#smart_close_popup()
-        else
-          return neocomplete#smart_close_popup()
-        endif
-      else
-        return "\<CR>"
-      endif
-    endfunction
-    " <CR> close popup and save indent or expand snippet
-    imap <expr> <CR> SmartReturn()
 
     " Enable heavy omni completion.
     if !exists('g:neocomplete#sources#omni#input_patterns')
@@ -251,6 +224,27 @@
     let g:ycm_register_as_syntastic_checker = 1
     let g:ycm_key_list_select_completion = ['<C-j>', '<Down>']
     let g:ycm_key_list_previous_completion = ['<C-k>', '<Up>']
+    let g:ycm_add_preview_to_completeopt = 0
+    let g:ycm_show_diagnostics_ui = 0
+    let g:ycm_server_log_level = 'info'
+    let g:ycm_min_num_identifier_candidate_chars = 2
+    let g:ycm_collect_identifiers_from_comments_and_strings = 1
+    let g:ycm_complete_in_strings=1
+    let g:ycm_key_invoke_completion = '<c-z>'
+    set completeopt=menu,menuone
+    let g:ycm_semantic_triggers =  {
+			\ 'c,cpp,python,java,go,erlang,perl': ['re!\w{2}'],
+			\ 'cs,lua,javascript': ['re!\w{2}'],
+			\ }
+    let g:ycm_filetype_whitelist = {
+			\ "c":1,
+			\ "cpp":1,
+			\ "objc":1,
+                        。。。。
+			\ "sh":1,
+			\ "zsh":1,
+			\ "zimbu":1,
+			\ }
     if GUI()
       let g:ycm_key_invoke_completion = '<C-Space>'
     else
@@ -272,3 +266,5 @@
   autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
   autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
   autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
+let g:syntastic_python_checkers = ['pylint']

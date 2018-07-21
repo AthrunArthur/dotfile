@@ -12,6 +12,7 @@ if has("autocmd")
     au BufEnter *.[ch] setl cindent
     au BufEnter *.[ch]pp setl cindent
     au BufEnter Makefile setl ts=4 sts=4 sw=4 noet list
+    au BufEnter *.es6 setf javascript
   augroup END
 
   " when enabling diff for a buffer it should be disabled when the
@@ -45,17 +46,4 @@ if has("autocmd")
   au FileType haskell setlocal commentstring=--\ %s
   " Workaround broken colour highlighting in Haskell
   au FileType haskell setlocal nospell
-
-  " Stupid shift key fixes
-  if has("user_commands")
-      command! -bang -nargs=* -complete=file E e<bang> <args>
-      command! -bang -nargs=* -complete=file W w<bang> <args>
-      command! -bang -nargs=* -complete=file Wq wq<bang> <args>
-      command! -bang -nargs=* -complete=file WQ wq<bang> <args>
-      command! -bang Wa wa<bang>
-      command! -bang WA wa<bang>
-      command! -bang Q q<bang>
-      command! -bang QA qa<bang>
-      command! -bang Qa qa<bang>
-  endif
 endif

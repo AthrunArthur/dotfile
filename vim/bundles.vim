@@ -1,21 +1,21 @@
 " PLUGINS BUNDLE
-let vundle_readme=expand($HOME.'/.vim/bundle/vundle/README.md')
+let vundle_readme=expand($HOME.'/.vim/bundle/Vundle.vim/README.md')
 if !filereadable(vundle_readme)
   echo "Installing Plugin.."
   echo ""
   silent !mkdir -p $HOME/.vim/bundle
-  silent !git clone https://github.com/gmarik/vundle $HOME/.vim/bundle/vundle/
+  silent !git clone https://github.com/VundleVim/Vundle.vim $HOME/.vim/bundle/Vundle.vim/
 endif
 
 " Required:
 if has('vim_starting')
   set nocompatible
-  set runtimepath+=$HOME/.vim/bundle/vundle/
+  set runtimepath+=$HOME/.vim/bundle/Vundle.vim/
   set sessionoptions-=options
 endif
 
 call vundle#rc(expand($HOME.'/.vim/bundle/'))
-Plugin 'gmarik/vundle'
+Plugin 'VundleVim/Vundle.vim'
 
 " Plugin Groups
 " List only the plugin groups you will use
@@ -26,65 +26,64 @@ endif
 " Plugins here:
 " GENERAL
 if count(g:bundle_groups, 'general')
-  Plugin 'itchyny/calendar.vim'
-  Plugin 'Lokaltog/vim-easymotion'
-  Plugin 'Stormherz/tablify'
+  if executable('ack')
+    Bundle 'mileszs/ack.vim'
+  endif
+  "Plugin 'itchyny/calendar.vim'
+  "Plugin 'Lokaltog/vim-easymotion'
+  "Plugin 'editorconfig/editorconfig-vim'
+  "Plugin 'Stormherz/tablify'
   Plugin 'bling/vim-airline'
-  Plugin 'chrisbra/NrrwRgn'
-  Plugin 'kien/ctrlp.vim'
-  Plugin 'tacahiroy/ctrlp-funky'
-  Plugin 'kris89/vim-multiple-cursors'
-  Plugin 'mbbill/undotree'
-  Plugin 'mhinz/vim-startify'
-  Plugin 'tpope/vim-commentary'
-  Plugin 'tpope/vim-fugitive'
-  Plugin 'tpope/vim-repeat'
-  Plugin 'tpope/vim-surround'
-  Plugin 'tpope/vim-vinegar'
-  Plugin 'tpope/vim-bundler'
-  Plugin 'troydm/easybuffer.vim'
-  Plugin 'yonchu/accelerated-smooth-scroll'
-  Plugin 'pelodelfuego/vim-swoop'
-  Plugin 'chrisbra/vim-diff-enhanced'
-  Plugin 'rhysd/vim-clang-format'
+  Plugin 'vim-airline/vim-airline-themes'
+  "Plugin 'kien/ctrlp.vim'
+  "Plugin 'tacahiroy/ctrlp-funky'
+  "Plugin 'kris89/vim-multiple-cursors'
+  "Plugin 'mbbill/undotree'
+  "Plugin 'Konfekt/FastFold'
+  ""Plugin 'mhinz/vim-startify'
+  "Plugin 'tpope/vim-abolish'
+  "Plugin 'tpope/vim-commentary'
+  "Plugin 'tpope/vim-repeat'
+  "Plugin 'tpope/vim-surround'
+  "Plugin 'tpope/vim-fugitive'
+  "Plugin 'troydm/easybuffer.vim'
+  "Plugin 'yonchu/accelerated-smooth-scroll'
+  "Plugin 'pelodelfuego/vim-swoop'
+  "Plugin 'chrisbra/vim-diff-enhanced'
 endif
 " DEVELOPER
 if count(g:bundle_groups, 'devel')
-  if WINDOWS()
-    " NeoComplete
-    Plugin 'Shougo/neocomplete'
-    Plugin 'Shougo/neosnippet'
-    Plugin 'Shougo/neosnippet-snippets'
-  else
-    " YouCompleteMe
-    Plugin 'Valloric/YouCompleteMe'
-    Plugin 'rdnetto/YCM-Generator'
-    Plugin 'SirVer/ultisnips'
-    Plugin 'matthewsimo/angular-vim-snippets'
-  endif
-  Plugin 'honza/vim-snippets'
-  Plugin 'mattn/emmet-vim'
-  Plugin 'AzizLight/TaskList.vim'
-  Plugin 'Chiel92/vim-autoformat'
+  "Plugin 'Shougo/neocomplete'
+  "Plugin 'Shougo/neosnippet'
+  "Plugin 'Shougo/neosnippet-snippets'
+  Plugin 'osyo-manga/vim-over'
+  "Plugin 'mattn/emmet-vim'
+  "Plugin 'godlygeek/tabular'
+  "Plugin 'mhinz/vim-signify'
+  "Plugin 'rdnetto/YCM-Generator', { 'branch': 'stable'}
+  "
+  "Plugin 'luochen1990/rainbow'
+  "Plugin 'honza/vim-snippets'
+  "Plugin 'Chiel92/vim-autoformat'
   Plugin 'jiangmiao/auto-pairs'
-  Plugin 'scrooloose/nerdtree'
-  Plugin 'Yggdroot/indentLine'
-  Plugin 'godlygeek/tabular'
-  Plugin 'jbnicolai/rainbow_parentheses.vim'
-  Plugin 'mhinz/vim-signify'
+  ""Plugin 'Yggdroot/indentLine'
   Plugin 'scrooloose/nerdcommenter'
   Plugin 'scrooloose/syntastic'
+
+  Plugin 'scrooloose/nerdtree'
+  Plugin 'Valloric/YouCompleteMe'
+  Plugin 'pboettch/vim-cmake-syntax'
 endif
 " LANGUAGES
 if count(g:bundle_groups, 'languages')
-  Plugin 'sheerun/vim-polyglot'
-  Plugin 'othree/html5.vim'
-  Plugin 'othree/javascript-libraries-syntax.vim'
-  Plugin 'othree/yajs.vim'
-  Plugin 'ap/vim-css-color'
-  Plugin 'burnettk/vim-angular'
-  Plugin 'tpope/vim-rails'
-  Plugin 'vim-ruby/vim-ruby'
+  "Plugin 'python-mode/python-mode'
+  "Plugin 'ap/vim-css-color'
+  "Plugin 'sheerun/vim-polyglot'
+  "Plugin 'othree/html5.vim'
+  "Plugin 'othree/javascript-libraries-syntax.vim'
+  "Plugin 'othree/yajs.vim'
+  "Plugin 'slava/vim-spacebars'
+  "Plugin 'leafgarland/typescript-vim'
 endif
 " COLORSCHEME
 if count(g:bundle_groups, 'colorscheme')

@@ -1,4 +1,4 @@
-" SETTINGS
+ "SETTINGS
 " General
 set title                          " change the terminal's title
 set history=1000                   " keep 100 lines of command line history
@@ -22,7 +22,7 @@ set cursorline
 set viewoptions=cursor,folds,slash,unix
 " vertical/horizontal scroll off settings
 if !&scrolloff
-  set scrolloff=1
+  set scrolloff=7
 endif
 if !&sidescrolloff
   set sidescrolloff=5
@@ -50,7 +50,9 @@ if has("mouse")
   set mouse=a
   set mousehide
   set mousemodel=popup
-  if has("mouse_sgr")|set ttymouse=sgr|else|set ttymouse=xterm2|endif
+  if !has('nvim')
+    set ttymouse=xterm2
+  endif
 endif
 
 " Editor Settings
@@ -82,8 +84,7 @@ set wildignore+=*.swp,*~,._*
 set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc,.pdf,.exe
 
 " chars to show for list
-set listchars=tab:▸\ ,eol:¬,trail:⋅,extends:❯,precedes:❮
-set showbreak=↪
+set listchars=tab:▸\ ,eol:¬,trail:⋅
 
 " Appearance Settings
 " switch syntax highlighting on, when the terminal has colors
@@ -96,7 +97,8 @@ if GUI()
   set t_Co=256
   "colorscheme badwolf
   colorscheme gruvbox
-  let base16colorspace=256  " Access colors present in 256 colorspace
+  " Access colors present in 256 colorspace
+  let base16colorspace=256
   "colorscheme base16-monokai
   "colorscheme base16-eighties
   " color fixes
@@ -126,7 +128,7 @@ if GUI()
   elseif OSX()
     set gfn=Liberation_Mono_for_Powerline:h13
   else
-    set gfn=Liberation\ Mono\ for\ Powerline\ 13
+    set gfn=Roboto\ Mono\ Medium\ 13
   endif
   nmap <F8> :if &go=~#'m'<Bar>set go-=m<Bar>else<Bar>set go+=m<Bar>endif<CR>
 endif
@@ -169,6 +171,7 @@ let &sbr = nr2char(8618).' ' " Show ↪ at the beginning of wrapped lines
 " Text, tab and indent related
 set autoindent    " Keep the indent when creating a new line
 set copyindent    " Copy the previous indentation on autoindent
+set smartindent
 set expandtab     " Spaces instead of tabs for better cross-editor compatibility
 set shiftwidth=2  " Number of spaces to use in each autoindent step
 set smarttab      " Use shiftwidth and softtabstop to insert or delete (on <BS>) blanks
@@ -176,7 +179,7 @@ set softtabstop=2 " Number of spaces to skip or insert when <BS>ing or <Tab>ing
 set tabstop=2     " Two tab spaces
 
 " Search
-set hlsearch      " highlight all matches...
+"set hlsearch        " highlight all matches...
 set ignorecase      " select case-insenitiv search
 set incsearch       " ...and also during entering the pattern
 set magic           " change the way backslashes are used in search patterns
@@ -189,8 +192,8 @@ nohlsearch          " avoid highlighting when reloading vimrc
 " Folding
 set foldenable            " enable folding
 set foldcolumn=1
-set foldlevel=1           " start out with everything folded
-set foldmethod=marker     " detect triple-{ style fold markers
+set foldlevel=5           " start out with everything folded
+"set foldmethod=syntax     " detect triple-{ style fold markers
 set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo
 set foldtext=MyFoldText() " Which command trigger auto-unfold
 
@@ -199,3 +202,9 @@ set sessionoptions=buffers,curdir,folds,tabpages,winsize
 let s:sessiondir  = expand("~/.vim/sessions", 1)
 let s:sessionfile = expand(s:sessiondir . "/session.vim", 1)
 let s:sessionlock = expand(s:sessiondir . "/session.lock", 1)
+
+function! Formatonsave()
+  let l:formatdiff = 1
+  pyf ~/bin/clang-format.py
+endfunction
+autocmd BufWritePre *.h,*.cc,*.cpp call Formatonsave()
